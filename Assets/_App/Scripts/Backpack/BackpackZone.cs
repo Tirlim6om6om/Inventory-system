@@ -17,18 +17,14 @@ public class BackpackZone : MonoBehaviour
                 _itemInZone = item;
                 _itemInZone.ItemEventSystem.OnDrop += OnDropItem;
             }
-            else
-            {
-                AddItem(item);
-            }
-        }
+        } 
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out ItemObject item))
         {
-            if (item.Draggable.IsDragging)
+            if (item.Draggable.IsDragging & _itemInZone != null)
             {
                 _itemInZone.ItemEventSystem.OnDrop -= OnDropItem;
                 _itemInZone = null;

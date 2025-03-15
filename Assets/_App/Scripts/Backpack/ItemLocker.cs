@@ -11,6 +11,6 @@ public class ItemLocker : MonoBehaviour
     public void SetLock(bool active)
     {
         _isLock = active;
-        _rb.isKinematic = true;
+        _rb.isKinematic = active;
     }
 }
