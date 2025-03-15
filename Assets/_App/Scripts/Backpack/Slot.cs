@@ -41,18 +41,17 @@ public class Slot : MonoBehaviour
         _itemObject.ItemEventSystem.OnPointerUp += OnPointerUp;
         
         _inventory.AddItem(itemObject.Item);
-        Debug.Log("Add " + _itemObject.gameObject.name);
     }
 
     private void OnPointerUp()
     {
-        if(!_backpack.WasMouseDown)
+        if(!_backpack.WasMouseDown | _inventory == null)
             return;
-        
-        _inventory.RemoveItem(_itemObject.Item); 
         _itemObject.ItemLocker.SetLock(false);
         _itemObject.transform.position = transform.position + transform.up * 0.25f;
-        Debug.Log("Remove " + _itemObject.gameObject.name);
+        _itemObject.ItemEventSystem.OnPointerUp -= OnPointerUp;
         _itemObject = null;
+        
+        _inventory.RemoveItem(_itemObject.Item); 
     }
 }
