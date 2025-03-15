@@ -7,8 +7,15 @@ public interface IDraggable
     void UpdatePos(Vector3 target);
 }
 
+public interface IDraggableWithStates : IDraggable
+{
+    bool IsDragging { get; }
+    event Action OnDrag;
+    event Action OnDrop;
+}
+
 [RequireComponent(typeof(Rigidbody))]
-public class ItemDragHandler : MonoBehaviour, IDraggable
+public class ItemDragHandler : MonoBehaviour, IDraggableWithStates
 {
     public bool IsDragging { get { return _isDragging; } }
     public event Action OnDrag;
