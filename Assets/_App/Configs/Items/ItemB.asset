@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd3ee7a57a6741ba89f1256c92115f04, type: 3}
-  m_Name: ItemA
+  m_Name: ItemB
   m_EditorClassIdentifier: 
-  itemName: "\u041A\u0443\u0431\u0438\u043A"
-  itemId: 0
-  weight: 2
-  description: "\u041F\u0440\u043E\u0441\u0442\u043E \u043A\u0443\u0431\u0438\u043A"
-  itemType: 0
-  icon: {fileID: 21300000, guid: 4c2b9020ddd5c61478cb987bac37a1c9, type: 3}
-  prefab: {fileID: 9085074711461364716, guid: 21c0a022513b61049b246f36617d9421, type: 3}
+  itemName: "\u0421\u0444\u0435\u0440\u043A\u0430"
+  itemId: 1
+  weight: 1.5
+  description: "\u041F\u0440\u043E\u0441\u0442\u043E \u0441\u0444\u0435\u0440\u0430"
+  itemType: 1
+  icon: {fileID: 21300000, guid: 03b0343ec88ea05419e90e98dfbd658c, type: 3}
+  prefab: {fileID: 7165339443975083189, guid: 5624dd5e81ea0094aa52b3858381c22e, type: 3}

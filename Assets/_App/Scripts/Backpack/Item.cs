@@ -9,12 +9,11 @@ public class Item : ScriptableObject
     public string description;
     public ItemType itemType;
     public Sprite icon;
-    public GameObject prefab;
     
     public enum ItemType
     {
-        Weapon,
-        Consumable,
-        Resource
+        Cube,
+        Sphere,
+        Capsule
     }
 }
