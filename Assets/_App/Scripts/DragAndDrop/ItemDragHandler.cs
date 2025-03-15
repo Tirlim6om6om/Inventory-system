@@ -1,51 +1,53 @@
-using System;
 using UnityEngine;
+using Zenject;
 
 public interface IDraggable
 {
-    void SetDrag(bool active);
+    bool IsDragging { get; }
+    bool SetDrag(bool active);
     void UpdatePos(Vector3 target);
 }
 
-public interface IDraggableWithStates : IDraggable
-{
-    bool IsDragging { get; }
-    event Action OnDrag;
-    event Action OnDrop;
-}
-
 [RequireComponent(typeof(Rigidbody))]
-public class ItemDragHandler : MonoBehaviour, IDraggableWithStates
+public class ItemDragHandler : MonoBehaviour, IDraggable
 {
     public bool IsDragging { get { return _isDragging; } }
-    public event Action OnDrag;
-    public event Action OnDrop;
-    
+
     [SerializeField] private float height;
     [SerializeField] private float lerpSpeed;
     
     private Rigidbody _rb;
+    private ItemEventSystem _itemEventSystem;
+    private ItemLocker _locker;
     private bool _isDragging;
     private Quaternion _startRot;
 
-    private void Awake()
+    [Inject]
+    public void Construct(Rigidbody rb, ItemEventSystem itemEventSystem, ItemLocker locker)
     {
-        _rb = GetComponent<Rigidbody>();
+        _rb = rb;
+        _itemEventSystem = itemEventSystem;
+        _locker = locker;
     }
 
-    public void SetDrag(bool active)
+    public bool SetDrag(bool active)
     {
+        if(_locker.IsLock)
+            return false;
+        
         _isDragging = active;
         _rb.useGravity = !active;
         
         if (active)
         {
-            OnDrag?.Invoke();
+           _itemEventSystem.DragInvoke();
         }
         else
         {
-            OnDrop?.Invoke();
+            _itemEventSystem.DropInvoke();
         }
+
+        return true;
     }
 
     public void UpdatePos(Vector3 target)

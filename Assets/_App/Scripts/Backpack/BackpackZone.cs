@@ -1,11 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BackpackZone : MonoBehaviour
 {
-    [SerializeField] private Inventory inventory;
-
-    private ItemObject _itemDraggable;
+    public event Action<ItemObject> OnAddItem;
+    
+    private ItemObject _itemInZone;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,8 +14,8 @@ public class BackpackZone : MonoBehaviour
         {
             if (item.Draggable.IsDragging)
             {
-                _itemDraggable = item;
-                _itemDraggable.Draggable.OnDrop += OnDropItem;
+                _itemInZone = item;
+                _itemInZone.ItemEventSystem.OnDrop += OnDropItem;
             }
             else
             {
@@ -29,20 +30,25 @@ public class BackpackZone : MonoBehaviour
         {
             if (item.Draggable.IsDragging)
             {
-                _itemDraggable.Draggable.OnDrop -= OnDropItem;
-                _itemDraggable = null;
+                _itemInZone.ItemEventSystem.OnDrop -= OnDropItem;
+                _itemInZone = null;
             }
         }
     }
 
     private void OnDropItem()
     {
-        inventory.AddItem(_itemDraggable.PickUp());
-        _itemDraggable = null;
+        AddItem(_itemInZone);
     }
 
     private void AddItem(ItemObject itemObject)
     {
-        inventory.AddItem(itemObject.PickUp());
+        if (_itemInZone != null)
+        {
+            _itemInZone.ItemEventSystem.OnDrop -= OnDropItem;
+            _itemInZone = null;
+        }
+
+        OnAddItem?.Invoke(itemObject);
     }
 }

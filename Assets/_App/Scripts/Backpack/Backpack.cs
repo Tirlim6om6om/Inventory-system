@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 
 public class Backpack : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public Inventory inventory;
     public GameObject inventoryUI;
     
     private bool isMouseDown = false;
