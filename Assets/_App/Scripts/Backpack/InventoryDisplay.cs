@@ -58,7 +58,7 @@ public class InventoryDisplay : MonoBehaviour
                 uniqueItems[item.itemId] = item;
             }
         }
- 
+
         foreach (var kvp in uniqueItems)
         {
             CreateItemSlot(kvp.Value, itemCounts[kvp.Key]);

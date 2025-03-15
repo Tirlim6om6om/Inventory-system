@@ -3,11 +3,8 @@ using Zenject;
 
 public class Slot : MonoBehaviour
 {
-    public int Index { get { return _index; } }
-    
     [SerializeField] private BackpackZone backpackZone;
 
-    private int _index;
     private ItemObject _itemObject;
     private Inventory _inventory;
     private BackpackController _backpack;
@@ -50,8 +47,8 @@ public class Slot : MonoBehaviour
         _itemObject.ItemLocker.SetLock(false);
         _itemObject.transform.position = transform.position + transform.up * 0.25f;
         _itemObject.ItemEventSystem.OnPointerUp -= OnPointerUp;
-        _itemObject = null;
         
         _inventory.RemoveItem(_itemObject.Item); 
+        _itemObject = null;
     }
 }

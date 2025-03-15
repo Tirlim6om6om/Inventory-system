@@ -5,19 +5,21 @@ using UnityEngine.Events;
 
 public class Inventory : MonoBehaviour
 {
-    public List<Item> items;
+    public List<Item> items { get { return _items; } }
     public event Action<Item> OnAddItem;
     public event Action<Item> OnRemoveItem;
 
+    private List<Item> _items = new List<Item>();
+
     public void AddItem(Item item)
     {
-        items.Add(item);
+        _items.Add(item);
         OnAddItem?.Invoke(item);
     }
 
     public void RemoveItem(Item item)
     {
-        items.Remove(item);
+        _items.Remove(item);
         OnRemoveItem?.Invoke(item);
     }
 }
