@@ -35,8 +35,15 @@ public class DragController : MonoBehaviour
     {
         if(!hitObject.TryGetComponent(out _currentDraggable))
             return;
-        _isDragging = true;
-        _currentDraggable.SetDrag(true);
+        
+        if (_currentDraggable.SetDrag(true))
+        {
+            _isDragging = true;
+        }
+        else
+        {
+            _currentDraggable = null;
+        }
     }
     
     private void StopDragging()
