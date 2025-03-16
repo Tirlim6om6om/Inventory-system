@@ -28,9 +28,9 @@ public class Slot : MonoBehaviour
 
     private void OnAddItem(ItemObject itemObject)
     {
-        if(_itemObject != null)
+        if (_itemObject != null || itemObject.ItemLocker.IsLock)
             return;
-        
+
         _itemObject = itemObject;
         _itemObject.ItemLocker.SetLock(true);
         _itemObject.transform.position = transform.position;
